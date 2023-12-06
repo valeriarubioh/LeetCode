@@ -29,20 +29,20 @@ Output:false
 */
 var isAlienSorted = function(palabras, orden) {
     //crear mapa del alfabeto
-    alphabet = new Map();
+    const alphabet = new Map();
     for (let i = 0; i < orden.length; i++) {
         alphabet[orden[i]]=i;
     }
     //revisar orden de las palabras
     for (let j = 1; j < palabras.length; j++) {
-        if(isWordSorted(palabras[j-1],palabras[j]) === false){
+        if(!isWordSorted(palabras[j-1],palabras[j],alphabet)){
             return false;
         }
     }
     return true;
 }
 
-var isWordSorted = function(word1, word2){
+var isWordSorted = function(word1, word2,alphabet){
     const maxLength = Math.min(word1.length,word2.length);
     for (let i = 0; i < maxLength; i++) {
         if(alphabet[word1[i]]<alphabet[word2[i]]) {
