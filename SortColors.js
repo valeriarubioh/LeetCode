@@ -40,6 +40,7 @@ var sortColors = function(nums) {
   let end= nums.length-1;
   let middle=0;
   let temp;
+  let i = 0
   while(middle <= end){
 
     if (nums[middle] == 0) {
@@ -48,14 +49,19 @@ var sortColors = function(nums) {
       nums[middle] = temp;
       start++;
       middle++;
+      console.log("changes 0")
     } else if (nums[middle] == 1) {
       middle++;
+      console.log("changes 1")
     } else {
       temp = nums[end];
       nums[end] = nums[middle];
       nums[middle] = temp;
       end--;
+      console.log("changes 2")
     }
+    console.log("Iteration: " + ++i);
+    console.log("start: " + start + " middle: " + middle + " end: " + end)
     console.log(nums)
   }
   return nums;
@@ -63,4 +69,4 @@ var sortColors = function(nums) {
 
 
 nums = [0,0,2,1,1,0,1,0,1,2]
-console.log(sortColors(nums))
+sortColors(nums)
