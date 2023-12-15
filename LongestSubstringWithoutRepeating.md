@@ -1,5 +1,5 @@
 # My solution
-
+## Sliding window
 ### JavaScript
 ```
 var lengthOfLongestSubstring = function(s) {
