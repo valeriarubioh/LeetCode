@@ -1,4 +1,4 @@
-var characterReplacement = function(s, k) {
+/*var characterReplacement = function(s, k) {
   var charMap = new Map();
   let left = 0;
   let res=0;
@@ -14,7 +14,29 @@ var characterReplacement = function(s, k) {
     res = Math.max(res, right-left+1) //update result with the window current size
   }
   return res;
-}
+}*/
+
+var characterReplacement = function(s, k) {
+  var charMap = new Map();
+  let left = 0;
+  let res = 0;
+  let maxCount = 0;
+
+  for (let right = 0; right < s.length; right++) {
+    charMap.set(s[right], 1 + (charMap.get(s[right]) || 0));
+    maxCount = Math.max(maxCount, charMap.get(s[right]));
+
+    while (right - left + 1 - maxCount > k) {
+      charMap.set(s[left], charMap.get(s[left]) - 1);
+      left++;
+    }
+
+    res = Math.max(res, right - left + 1);
+  }
+
+  return res;
+};
+
 
 //Output: 4 -> Explanation: Replace the two 'A's with two 'B's or vice versa.
 console.log(characterReplacement("ABAB",2));
