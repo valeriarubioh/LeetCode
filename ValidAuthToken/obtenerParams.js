@@ -7,9 +7,25 @@ let request = [
   ["POST", "https://example.com/?token=safh34ywb0p5&csrf=ak2sh32dy&name=chris"],
 ];
 
+function obtenerParametrosDesdeURL(url) {
+  const parametros = {};
+  const indiceQuery = url.indexOf('?');
+
+  if (indiceQuery !== -1) {
+    const cadenaConsulta = url.substring(indiceQuery + 1);
+    const pares = cadenaConsulta.split('&');
+
+    for (const par of pares) {
+      const [clave, valor] = par.split('=');
+      parametros[clave] = valor || '';
+    }
+  }
+  console.log(parametros);
+  return parametros;
+}
+
 function getResponses(valid_auth_tokens, request) {
   let petitions = [];
-
   let responses = [];
 
   for (let i = 0; i < request.length; i++) {
@@ -17,18 +33,11 @@ function getResponses(valid_auth_tokens, request) {
     let petitionRequest = arrInt[0];
     let url = arrInt[1];
 
-    let queryString = new URL(url).search.substring(1);
-    let queries = new URLSearchParams(queryString);
-    //console.log(`URL: ${url}`);
-    //console.log(`QueryString: ${queries.toString()}`);
-
-    let object = Array.from(queries.keys()).reduce(
-      (acc, key) => ({ ...acc, [key]: queries.get(key) }),
-      {}
-    );
+    let object = obtenerParametrosDesdeURL(url);
 
     petitions.push({ petitionRequest, object });
   }
+  console.log(petitions)
 
   for (let i = 0; i < petitions.length; i++) {
     let tokenRequest = petitions[i].object.token;
@@ -69,17 +78,13 @@ function validarCSRF(csrf) {
     return false;
   }
 
-  if (/^[a-z0-9]+$/.test(csrf)) {
-    return true;
-  } else {
-    return false;
+  for (let i = 0; i < csrf.length; i++) {
+    const char = csrf[i];
+    if (!((char >= 'a' && char <= 'z') || (char >= '0' && char <= '9'))) {
+      return false;
+    }
   }
+  return true;
 }
 
 console.log(getResponses(valid_auth_tokens, request));
-
-//let url = window.location.search;
-//let queries = new URLSearchParams(url);
-
-//let url = 'https://example.com/?token=347sd6yk8iu2&name=alex'
-//let queryString = url.split('?')[1];
