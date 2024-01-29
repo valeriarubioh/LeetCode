@@ -13,14 +13,14 @@ var trap = function(height) {
   while (left < right) {
     if (maxRight >= maxLeft) {
       left++;
-      leftActualArea = maxLeft - height[left];
+      const leftActualArea = maxLeft - height[left];
       if(leftActualArea>0){
         maxArea+=leftActualArea;
       }
       maxLeft = Math.max(maxLeft,height[left])
     } else {
       right--;
-      rightActualArea = maxRight - height[right];
+      const rightActualArea = maxRight - height[right];
       if(rightActualArea>0){
         maxArea+=rightActualArea;
       }
