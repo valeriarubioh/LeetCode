@@ -7,13 +7,14 @@ var reorderList = function (head) {
   if(!head || !head.next|| !head.next.next){
     return head;
   }
-  let fast = head.next;
   let slow = head;
-  while(fast && fast.next){
+  let fast = head;
+  while (fast.next && fast.next.next){
     fast = fast.next.next;
     slow = slow.next;
   }
   let currentNode = slow.next;
+  slow.next = null;
   let previousNode = null;
   let nextNode;
   while(currentNode!=null){
