@@ -1,7 +1,8 @@
 public class Main {
     public static void main(String[] args) {
       // Ejemplo de uso
-      BrowserHistory browserHistory = new BrowserHistory("leetcode.com");
+      //BrowserHistory browserHistory = new BrowserHistory("leetcode.com");
+      BrowserHistoryLinkedList browserHistory = new BrowserHistoryLinkedList("leetcode.com");
       browserHistory.visit("google.com");       // You are in "leetcode.com". Visit "google.com"
       browserHistory.visit("facebook.com");     // You are in "google.com". Visit "facebook.com"
       browserHistory.visit("youtube.com");      // You are in "facebook.com". Visit "youtube.com"
